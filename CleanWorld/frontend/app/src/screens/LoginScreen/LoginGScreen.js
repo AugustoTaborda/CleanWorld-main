@@ -11,7 +11,6 @@ export default function LoginGScreen({ navigation }) {
   const handleLogin = async () => {
     setLoading(true);
     setError('');
-    // Validação básica
     if (!email || !password) {
       setError('Por favor, preencha todos os campos.');
       setLoading(false);
@@ -42,6 +41,8 @@ export default function LoginGScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerContent}>
+
+
           <Image 
             source={require('../../../assets/—Pngtree—green leaves vector icon design_5224035.png')} 
             style={styles.image}
