@@ -3,16 +3,18 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 
 export default function RegisterZeroScreen({ navigation }) {
   const [empresa, setEmpresa] = useState('');
-  const [pessoaFisica, setPessoaFisica] = useState('');
-  const [selectedOption, setSelectedOption] = useState(0); // 0: Pessoa Física, 1: Empresa
+  const [name, setname] = useState('');
+  const [userType, setUserType] = useState(0); // 0: Pessoa Física, 1: Empresa
 
   const handleRegisterZero = () => {
-    if (selectedOption === 1 && empresa.trim() !== '') {
+    if (userType === 1 && empresa.trim() !== '') {
       // Se for empresa e o campo não estiver vazio
-      navigation.navigate("RegisterSecondScreen", { empresa, tipo: selectedOption });
-    } else if (selectedOption === 0 && pessoaFisica.trim() !== '') {
+      console.log(userType);
+      navigation.navigate("RegisterSecondScreen", { empresa, userType });
+    } else if (userType === 0 && name.trim() !== '') {
       // Se for pessoa física e o campo não estiver vazio
-      navigation.navigate("Register", { pessoaFisica, tipo: selectedOption });
+      console.log(userType);
+      navigation.navigate("Register", { name, userType });
     } else {
       alert('Por favor, preencha o campo correspondente antes de prosseguir.');
     }
@@ -35,31 +37,31 @@ export default function RegisterZeroScreen({ navigation }) {
 
       <View style={styles.toggleContainer}>
         <TouchableOpacity
-          style={[styles.toggleButton, selectedOption === 0 ? styles.activeToggle : styles.inactiveToggle]}
+          style={[styles.toggleButton, userType === 0 ? styles.activeToggle : styles.inactiveToggle]}
           onPress={() => {
-            setSelectedOption(0);
+            setUserType(0);
             setEmpresa(''); // Limpa o campo da empresa se selecionar pessoa física
           }}
         >
-          <Text style={[styles.toggleText, selectedOption === 0 ? styles.activeText : styles.inactiveText]}>
+          <Text style={[styles.toggleText, userType === 0 ? styles.activeText : styles.inactiveText]}>
             Pessoa Física
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.toggleButton, selectedOption === 1 ? styles.activeToggle : styles.inactiveToggle]}
+          style={[styles.toggleButton, userType === 1 ? styles.activeToggle : styles.inactiveToggle]}
           onPress={() => {
-            setSelectedOption(1);
-            setPessoaFisica(''); // Limpa o campo da pessoa física se selecionar empresa
+            setUserType(1);
+            setname(''); // Limpa o campo da pessoa física se selecionar empresa
           }}
         >
-          <Text style={[styles.toggleText, selectedOption === 1 ? styles.activeText : styles.inactiveText]}>
+          <Text style={[styles.toggleText, userType === 1 ? styles.activeText : styles.inactiveText]}>
             Empresa
           </Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.loginBox}>
-        {selectedOption === 1 && (
+        {userType === 1 && (
           <>
             <Text style={styles.label}>Empresa:</Text>
             <TextInput
@@ -71,14 +73,14 @@ export default function RegisterZeroScreen({ navigation }) {
           </>
         )}
 
-        {selectedOption === 0 && (
+        {userType === 0 && (
           <>
             <Text style={styles.label}>Pessoa Física:</Text>
             <TextInput
               style={styles.input}
               placeholder="Digite seu nome"
-              value={pessoaFisica}
-              onChangeText={setPessoaFisica}
+              value={name}
+              onChangeText={setname}
             />
           </>
         )}
