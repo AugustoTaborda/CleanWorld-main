@@ -1,47 +1,41 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import axios from "axios";
 
 export default function LoginSecondScreen({ navigation , route}) {
-  const {name, cpf, phone, birthDate, userType} = route.params
+  const {name, cpf, phone, birthDate, userType} = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  LoginGScreen
 
-  const handleRegister = () => {
-    console.log("----------------------")
-    console.log('Nome:', name);
-    console.log('CPF:', cpf);
-    console.log('Telefone:', phone);
-    console.log('Data de Nascimento:', birthDate);
-    console.log('Usuário:', userType);
-    console.log('Email:', email);
-    console.log('Senha:', password);
-
-
-    try{
-      const response = async () => {
-        response = await axios.post("http://localhost:8000/api/user", {
-          name,
-          cpf, 
-          phone, 
-          birthDate,
-          userType,
-          email,
-          password
-        })
-      }
+  const handleRegister = async () => {  
+    try {
+      const response = await axios.post("http://localhost:8000/api/user", {
+        name,
+        cpf, 
+        phone, 
+        birthDate,
+        userType, 
+        email,
+        password
+      });
+      console.log(response.data);
+      navigation.navigate("Login");
+  
+    } catch (error) {
+      console.error('Erro ao registrar usuário:', error);
     }
-    catch{}
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image 
-          source={{ uri: '/assets/—Pngtree—green leaves vector icon design_5224035.png' }} 
-          style={styles.image}
-        />
-        <Text style={styles.text}>CleanWorld</Text>
-      </View>
+      <View style={styles.headerContent}>
+          <Image 
+            source={require('../../../assets/—Pngtree—green leaves vector icon design_5224035.png')} 
+            style={styles.image}
+          />
+          <Text style={styles.text}>CleanWorld</Text>
+        </View>
 
       <View style={styles.loginBox}>
         <Text style={styles.loginTitle}>Registro</Text>
@@ -76,10 +70,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#83D07F',
   },
-  header: {
+  headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
   },
   image: {
     width: 60,
