@@ -5,20 +5,14 @@ export default function RegisterFirstScreen({ navigation, route }) {
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
   const [birthDate, setBirthDate] = useState('');
-  
-  const { pessoaFisica } = route.params;
+  const { name, userType } = route.params;
 
-  const handleRegister = () => {
-    console.log('Nome:', pessoaFisica);
-    console.log('CPF:', cpf);
-    console.log('Telefone:', phone);
-    console.log('Data de Nascimento:', birthDate);
-    navigation.navigate("RegisterSecondScreen", { pessoaFisica, cpf, phone, birthDate });
+  const handleRegister = () => {  
+    navigation.navigate("RegisterSecondScreen", { name, cpf, phone, birthDate, userType });
   };
 
   return (
     <View style={styles.container}>
-      {/* Bloco CleanWorld com fundo branco, centralizado */}
       <View style={styles.headerBox}>
         <Image 
           source={require('../../../assets/—Pngtree—green leaves vector icon design_5224035.png')} 
